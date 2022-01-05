@@ -39,7 +39,9 @@ var TradeBatcher = function(tid) {
   if(!_.isString(tid))
     throw new Error('tid is not a string');
 
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.tid = tid;
   this.last = -1;
 }
@@ -110,9 +112,9 @@ TradeBatcher.prototype.filter = function(batch) {
   // weed out known trades
   // TODO: optimize by stopping as soon as the
   // first trade is too old (reverse first)
-  return _.filter(batch, function(trade) {
+  return _.filter(batch, _.bind(function(trade) {
     return this.last < trade[this.tid];
-  }, this);
+  }, this));
 }
 
 TradeBatcher.prototype.convertDates = function(batch) {

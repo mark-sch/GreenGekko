@@ -9,7 +9,9 @@ var handle = require('./handle');
 var mongoUtil = require('./util');
 
 var Store = function Store (done) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.done = done;
   this.db = handle;
   this.historyCollection = this.db.collection(mongoUtil.settings.historyCollection);
@@ -51,7 +53,7 @@ Store.prototype.writeCandles = function writeCandles () {
   this.historyCollection.insert(candles, { ordered: false }, e => {
     if (e) {
       let msg = 'mongojs insert() ' + e.writeErrors.length + ' of ' + candles.length + ' failed.';
-      _.forEach(_.countBy(e.writeErrors, 'code'), (c, k) => {
+      _.each(_.countBy(e.writeErrors, 'code'), (c, k) => {
         msg += ' Code: E' + k + ' count: ' + c;
       });
       log.debug(msg);

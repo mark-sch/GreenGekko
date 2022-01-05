@@ -16,7 +16,9 @@ else
 var Heart = function() {
   this.lastTick = false;
 
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 }
 
 util.makeEventEmitter(Heart);

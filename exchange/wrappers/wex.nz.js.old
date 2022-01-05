@@ -13,7 +13,9 @@ var Trader = function(config) {
   this.pair = [config.asset, config.currency].join('_').toLowerCase();
   this.name = 'wex.nz';
 
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.wex = new WEX(this.key, this.secret);
   _.bindAll(this.wex, ['trade', 'trades', 'getInfo', 'ticker', 'orderList']);

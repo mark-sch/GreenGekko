@@ -7,7 +7,9 @@ var util = require('../../core/util');
 var log = require('../../core/log');
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.done = done;
 
   this.db = sqlite.initDB(false);
@@ -43,9 +45,15 @@ Store.prototype.upsertTables = function() {
 
   var next = _.after(_.size(createQueries), this.done);
 
-  _.each(createQueries, function(q) {
-    this.db.run(q, next);
-  }, this);
+  _.each(
+    createQueries, 
+    _.bind(
+      function(q) {
+        this.db.run(q, next);
+      }, 
+      this
+    )
+  );
 }
 
 Store.prototype.writeCandles = function() {

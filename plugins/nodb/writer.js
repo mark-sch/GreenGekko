@@ -4,7 +4,9 @@ const config = util.getConfig();
 
 
 var Store = function(done, pluginMeta) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.done = done;
   done();
 }

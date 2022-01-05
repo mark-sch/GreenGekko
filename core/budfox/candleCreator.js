@@ -49,7 +49,9 @@ var moment = require('moment');
 var util = require(__dirname + '/../util');
 
 var CandleCreator = function() {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   // TODO: remove fixed date
   this.threshold = moment("1970-01-01", "YYYY-MM-DD");
@@ -84,21 +86,29 @@ CandleCreator.prototype.write = function(batch) {
 CandleCreator.prototype.filter = function(trades) {
   // make sure we only include trades more recent
   // than the previous emitted candle
-  return _.filter(trades, function(trade) {
+  return _.filter(trades, _.bind(function(trade) {
     return trade.date > this.threshold;
-  }, this);
+  }, this));
 }
 
 // put each trade in a per minute bucket
+// Pierolalune, 18.02.2021, prepare _.each for lodash upgrade. 
+// thisArgs disappears, can be solved with binding function with this.
 CandleCreator.prototype.fillBuckets = function(trades) {
-  _.each(trades, function(trade) {
-    var minute = trade.date.format('YYYY-MM-DD HH:mm');
+  _.each(
+    trades, 
+    _.bind(
+      function(trade) {
+        var minute = trade.date.format('YYYY-MM-DD HH:mm');
 
-    if(!(minute in this.buckets))
-      this.buckets[minute] = [];
+        if(!(minute in this.buckets))
+          this.buckets[minute] = [];
 
-    this.buckets[minute].push(trade);
-  }, this);
+        this.buckets[minute].push(trade);
+      }, 
+      this
+    )
+  );
 
   this.lastTrade = _.last(trades);
 }
@@ -112,7 +122,7 @@ CandleCreator.prototype.calculateCandles = function() {
     // create a string referencing the minute this trade happened in
     var lastMinute = this.lastTrade.date.format('YYYY-MM-DD HH:mm');
 
-  var candles = _.map(this.buckets, function(bucket, name) {
+  var candles = _.map(this.buckets, _.bind(function(bucket, name) {
     var candle = this.calculateCandle(bucket);
 
     // clean all buckets, except the last one:
@@ -121,7 +131,7 @@ CandleCreator.prototype.calculateCandles = function() {
       delete this.buckets[name];
 
     return candle;
-  }, this);
+  }, this));
 
   return candles;
 }
@@ -178,7 +188,7 @@ CandleCreator.prototype.addEmptyCandles = function(candles) {
     i = +start;
     j++;
 
-    if(_.contains(minutes, i))
+    if(_.includes(minutes, i))
       continue; // we have a candle for this minute
 
     var lastPrice = candles[j].close;

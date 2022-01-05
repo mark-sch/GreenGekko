@@ -6,7 +6,8 @@ const gekkoRoot = __dirname + '/../../';
 module.exports = function *() {
   const strategyDir = yield fs.readdir(gekkoRoot + 'strategies');
   const strats = strategyDir
-    .filter(f => _.last(f, 3).join('') === '.js')
+    // .filter(f => _.takeRight(f, 3).join('') === '.js')
+    .filter(f => f.endsWith('.js'))
     .map(f => {
       return { name: f.slice(0, -3) }
     });

@@ -35,7 +35,9 @@ else
 
 var Market = function() {
 
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   Readable.call(this, {objectMode: true});
 
@@ -99,10 +101,17 @@ Market.prototype.processCandles = function(err, candles) {
   // we know we are missing 57 candles...
 
   context = this;
-  _.each(candles, function(c, i) {
-    c.start = moment.unix(c.start).utc();
-  //  this.push(c);
-  }, this);
+  // Pierolalune, 18.02.2021, prepare _.each for lodash upgrade. 
+  // thisArgs disappears, can be solved with binding function with this.
+  _.each(
+    candles, 
+    _.bind(
+      function(c, i) {
+        c.start = moment.unix(c.start).utc();
+        this.push(c);
+      }, this
+    )
+  );
   this.batchHistoryData(candles, 0);
 
   this.latestTs = _.last(candles).start.unix() + 1;

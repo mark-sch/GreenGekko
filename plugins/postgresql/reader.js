@@ -11,7 +11,9 @@ const pg = require('pg');
 const { Query } = require('pg');
 
 var Reader = function(mydb) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   if (mydb === undefined)
      this.db = handle;

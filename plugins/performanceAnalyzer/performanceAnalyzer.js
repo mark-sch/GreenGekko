@@ -15,7 +15,9 @@ const shortTrading = perfConfig.shortTrading != undefined ? perfConfig.shortTrad
 const Logger = require('./logger');
 
 const PerformanceAnalyzer = function() {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.dates = {
     start: false,

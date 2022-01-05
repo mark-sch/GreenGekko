@@ -114,7 +114,7 @@ AsyncIndicatorRunner.prototype.addTalibIndicator = function(name, type, paramete
   if(!talib)
     util.die('Talib is not enabled');
 
-  if(!_.contains(allowedTalibIndicators, type))
+  if(!_.includes(allowedTalibIndicators, type))
     util.die('I do not know the talib indicator ' + type);
 
   if(this.setup)
@@ -133,7 +133,7 @@ AsyncIndicatorRunner.prototype.addTulipIndicator = function(name, type, paramete
     util.die('Tulip indicators is not enabled');
   }
 
-  if(!_.contains(allowedTulipIndicators, type))
+  if(!_.includes(allowedTulipIndicators, type))
     util.die('I do not know the tulip indicator ' + type);
 
   if(this.setup)

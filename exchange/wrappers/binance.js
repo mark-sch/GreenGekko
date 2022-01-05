@@ -145,17 +145,21 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     if (err) return callback(err);
 
     var parsedTrades = [];
+    // Pierolalune, 18.02.2021, prepare _.each for lodash upgrade.
+    // thisArgs disappears, can be solved with binding function with this.
     _.each(
       data,
-      function(trade) {
-        parsedTrades.push({
-          tid: trade.aggTradeId,
-          date: moment(trade.timestamp).unix(),
-          price: parseFloat(trade.price),
-          amount: parseFloat(trade.quantity),
-        });
-      },
-      this
+      _.bind(
+        function(trade) {
+          parsedTrades.push({
+            tid: trade.aggTradeId,
+            date: moment(trade.timestamp).unix(),
+            price: parseFloat(trade.price),
+            amount: parseFloat(trade.quantity),
+          });
+        },
+        this
+      )
     );
 
     if (descending) callback(null, parsedTrades.reverse());

@@ -20,7 +20,9 @@ var CandleBatcher = function(candleSize) {
   this.smallCandles = [];
   this.calculatedCandles = [];
 
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 }
 
 util.makeEventEmitter(CandleBatcher);
@@ -60,14 +62,21 @@ CandleBatcher.prototype.write = async function(candles) {
 
   this.emitted = 0;
 
-  _.each(candles, function(candle) {
-    if (this.prevcandle == undefined) this.prevcandle = _.clone(candle);
-    candle = this.addHeikinAshi(candle, this.prevcandle);
-    this.prevcandle = _.clone(candle);
-
-    this.smallCandles.push(candle);
-    this.check();
-  }, this);
+  // Pierolalune, 18.02.2021, prepare _.each for lodash upgrade
+  // _.each(candles, function(candle) {
+  //   this.smallCandles.push(candle);
+  //   this.check();
+  // }, this);
+  _.each(
+    candles, 
+    _.bind(
+      function(candle) {
+        this.smallCandles.push(candle);
+        this.check();
+      }, 
+      this
+    )
+  );
 
   return this.emitted;
 }
