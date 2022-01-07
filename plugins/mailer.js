@@ -65,7 +65,9 @@ Mailer.prototype.setup = function(done) {
 
   if(!mailConfig.password) {
     // ask for the mail password
-    var prompt = require('prompt-lite');
+    //Pierolalune, 12.02.2021: Replace prompt-lite with prompt
+    //var prompt = require('prompt-lite');
+    var prompt = require('prompt');
     prompt.start();
     var warning = [
       '\n\n\tYou configured Gekko to mail you advice, Gekko needs your email',

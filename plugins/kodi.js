@@ -3,7 +3,9 @@
  */
 
 var _ = require('lodash');
-var request = require('request');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//var request = require('request');
+var request = require('axios');
 var log = require('../core/log.js');
 var util = require('../core/util.js');
 var config = util.getConfig();

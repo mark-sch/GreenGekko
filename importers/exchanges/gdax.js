@@ -12,7 +12,9 @@ const BATCH_SIZE = 100;
 const SCAN_ITER_SIZE = 50000;
 const BATCH_ITER_SIZE = BATCH_SIZE * 10;
 
-const Fetcher = require(dirs.exchanges + 'gdax');
+//Pierolalune, 15.02.2021, replace gdax 0.7.0 with coinbase-pro 0.9.0
+//const Fetcher = require(dirs.exchanges + 'gdax');
+const Fetcher = require(dirs.exchanges + 'coinbase-pro');
 const retry = require(dirs.exchanges + '../exchangeUtils').retry;
 
 Fetcher.prototype.getTrades = function(sinceTid, callback) {

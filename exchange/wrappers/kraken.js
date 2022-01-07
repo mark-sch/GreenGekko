@@ -401,7 +401,7 @@ Trader.prototype.checkOrder = function(order, callback) {
     if(err) return callback(err);
 
     const result = data.result[order];
-console.log('Debug checkOrder', result.vol, result.vol_exec, result.status, result.vol_exec);
+	console.log('Debug checkOrder', result.vol, result.vol_exec, result.status, result.vol_exec);
     callback(undefined, {
       executed: result.vol === result.vol_exec,
       open: result.status === 'open',

@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const fs = require('fs');
-const request = require('request-promise');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//const request = require('request-promise');
+const request = require('axios');
 const Promise = require('bluebird');
 
 

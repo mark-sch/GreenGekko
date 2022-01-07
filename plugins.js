@@ -93,8 +93,8 @@ var plugins = [
       module: 'emailjs',
       version: '1.0.5'
     }, {
-      module: 'prompt-lite',
-      version: '0.1.1'
+      module: 'prompt',
+      version: '1.1.0'
     }]
   },
   {

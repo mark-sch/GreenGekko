@@ -5,7 +5,9 @@ const retry = require('../exchangeUtils').retry;
 
 const CryptoJS = require("crypto-js");
 const querystring = require('querystring');
-const request = require('request');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//const request = require('request');
+const request = require('axios');
 
 API_URL='https://api.exmo.com/v1/';
 
