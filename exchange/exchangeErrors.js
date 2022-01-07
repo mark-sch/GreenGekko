@@ -1,7 +1,9 @@
 const _ = require('lodash');
 
 const ExchangeError = function(message) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.name = "ExchangeError";
   this.message = message;
@@ -9,7 +11,9 @@ const ExchangeError = function(message) {
 ExchangeError.prototype = new Error();
 
 const ExchangeAuthenticationError = function(message) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.name = "ExchangeAuthenticationError";
   this.message = message;
@@ -17,7 +21,9 @@ const ExchangeAuthenticationError = function(message) {
 ExchangeAuthenticationError.prototype = new Error();
 
 const RetryError = function(message) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.name = "RetryError";
   this.retry = 5;
@@ -26,7 +32,9 @@ const RetryError = function(message) {
 RetryError.prototype = new Error();
 
 const AbortError = function(message) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.name = "AbortError";
   this.message = message;

@@ -6,7 +6,9 @@ const config = util.getConfig();
 const iftttConfig = config.ifttt;
 
 const IFTTT = function(done) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.ifttt;
   this.price = 'N/A';
   this.done = done;

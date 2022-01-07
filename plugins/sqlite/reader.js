@@ -7,7 +7,9 @@ var sqlite = require('./handle');
 var sqliteUtil = require('./util');
 
 var Reader = function() {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.db = sqlite.initDB(true);
 }
 

@@ -4,7 +4,9 @@ const Connection = require('./connection.js');
 var warmupCompleted = false;
 
 const Connector = function(done) {
-    _.bindAll(this);
+    // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
     this.mycon = new Connection();
     this.mycon.registerListener(this.onRemoteCandle, this.onRemoteAdvice, this.onRemoteOrderbook);
     done();

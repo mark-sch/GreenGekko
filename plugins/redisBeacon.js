@@ -10,7 +10,9 @@ var _ = require('lodash');
 var redis = require("redis");
 
 var Actor = function(done) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.market = [
     watch.exchange,
@@ -29,7 +31,7 @@ var Actor = function(done) {
 // emit.
 
 var proto = {};
-_.each(redisBeacon.broadcast, function(e) {
+_.each(redisBeacon.broadcast, _.bind(function(e) {
   // grab the corresponding subscription 
   var subscription = _.find(subscriptions, function(s) { return s.event === e });
 
@@ -48,7 +50,7 @@ _.each(redisBeacon.broadcast, function(e) {
     }, cb);
   };
 
-}, this)
+}, this))
 
 Actor.prototype = proto;
 

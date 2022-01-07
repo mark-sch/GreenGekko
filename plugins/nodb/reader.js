@@ -1,7 +1,9 @@
 var _ = require('lodash');
 
 var Reader = function(mydb) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 }
 
 // returns the furthest point (up to `from`) in time we have valid data from

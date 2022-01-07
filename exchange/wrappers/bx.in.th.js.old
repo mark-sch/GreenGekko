@@ -5,7 +5,9 @@ var moment = require('moment');
 var log = require('../core/log');
 
 var Trader = function(config) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;
@@ -48,7 +50,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
       return this.retry(this.getTrades, args);
 
     var parsedTrades = [];
-    _.each(result.trades, function(trade) {
+    _.each(result.trades, _.bind(function(trade) {
       // We get trade time in local time, which is GMT+7
       var date = moment(trade.trade_date).subtract(7, 'hours').unix();
 
@@ -58,7 +60,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
         amount: parseFloat(trade.amount),
         tid: trade.trade_id
       });
-    }, this);
+    }, this));
 
     if(descending)
       callback(null, parsedTrades.reverse());

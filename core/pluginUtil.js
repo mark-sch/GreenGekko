@@ -67,7 +67,7 @@ var pluginHelper = {
 
     plugin.config = config[plugin.slug];
 
-    if(_.contains(plugin.mandatoryOn, gekkoMode)) {
+    if(_.includes(plugin.mandatoryOn, gekkoMode)) {
       log.warn(
         'The plugin',
         plugin.name,
@@ -81,7 +81,7 @@ var pluginHelper = {
     if(!plugin.config || !plugin.config.enabled)
       return next();
 
-    if(!_.contains(plugin.modes, gekkoMode)) {
+    if(!_.includes(plugin.modes, gekkoMode)) {
       log.warn(
         'The plugin',
         plugin.name,

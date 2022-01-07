@@ -12,6 +12,7 @@
     "WAVES",
     "ETC",
     "ETH",
+    "ICN",
     "LTC",
     "MLN",
     "REP",
@@ -21,7 +22,14 @@
     "XLM",
     "XMR",
     "XRP",
-    "ZEC"
+    "ZEC",
+    "COMP",
+    "MANA",
+    "AAVE",
+    "ALGO",
+    "FLOW",
+    "EWT",
+    "OCEAN"
   ],
   "currencies": [
     "CAD",
@@ -851,6 +859,40 @@
     },
     {
       "pair": [
+        "ETH",
+        "ICN"
+      ],
+      "prefixed": [
+        "XETH",
+        "XICN"
+      ],
+      "book": "XICNXETH",
+      "minimalOrder": {
+        "amount": "2",
+        "unit": "asset"
+      },
+      "pricePrecision": 6,
+      "amountPrecision": 8
+    },
+    {
+      "pair": [
+        "XBT",
+        "ICN"
+      ],
+      "prefixed": [
+        "XXBT",
+        "XICN"
+      ],
+      "book": "XICNXXBT",
+      "minimalOrder": {
+        "amount": "2",
+        "unit": "asset"
+      },
+      "pricePrecision": 6,
+      "amountPrecision": 8
+    },
+    {
+      "pair": [
         "XBT",
         "LTC"
       ],
@@ -1442,6 +1484,125 @@
         "unit": "asset"
       },
       "pricePrecision": 2,
+      "amountPrecision": 8
+    },
+	{
+      "pair": [
+        "EUR",
+        "COMP"
+      ],
+      "prefixed": [
+        "EUR",
+        "COMP"
+      ],
+      "book": "COMPEUR",
+      "minimalOrder": {
+        "amount": "0.025",
+        "unit": "asset"
+      },
+      "pricePrecision": 2,
+      "amountPrecision": 8
+    },
+	{
+      "pair": [
+        "EUR",
+        "MANA"
+      ],
+      "prefixed": [
+        "EUR",
+        "MANA"
+      ],
+      "book": "MANAEUR",
+      "minimalOrder": {
+        "amount": "50",
+        "unit": "asset"
+      },
+      "pricePrecision": 5,
+      "amountPrecision": 8
+    },
+	{
+      "pair": [
+        "EUR",
+        "AAVE"
+      ],
+      "prefixed": [
+        "EUR",
+        "AAVE"
+      ],
+      "book": "AAVEEUR",
+      "minimalOrder": {
+        "amount": "0.1",
+        "unit": "asset"
+      },
+      "pricePrecision": 2,
+      "amountPrecision": 8
+    },
+	{
+      "pair": [
+        "EUR",
+        "ALGO"
+      ],
+      "prefixed": [
+        "EUR",
+        "ALGO"
+      ],
+      "book": "ALGOEUR",
+      "minimalOrder": {
+        "amount": "50",
+        "unit": "asset"
+      },
+      "pricePrecision": 5,
+      "amountPrecision": 8
+    },
+	{
+      "pair": [
+        "EUR",
+        "FLOW"
+      ],
+      "prefixed": [
+        "EUR",
+        "FLOW"
+      ],
+      "book": "FLOWEUR",
+      "minimalOrder": {
+        "amount": "1",
+        "unit": "asset"
+      },
+      "pricePrecision": 3,
+      "amountPrecision": 8
+    },
+    {
+      "pair": [
+        "EUR",
+        "EWT"
+      ],
+      "prefixed": [
+        "EUR",
+        "EWT"
+      ],
+      "book": "EWTEUR",
+      "minimalOrder": {
+        "amount": "1",
+        "unit": "asset"
+      },
+      "pricePrecision": 3,
+      "amountPrecision": 8
+    },
+    {
+      "pair": [
+        "EUR",
+        "OCEAN"
+      ],
+      "prefixed": [
+        "EUR",
+        "OCEAN"
+      ],
+      "book": "OCEANEUR",
+      "minimalOrder": {
+        "amount": "10",
+        "unit": "asset"
+      },
+      "pricePrecision": 4,
       "amountPrecision": 8
     }
   ]

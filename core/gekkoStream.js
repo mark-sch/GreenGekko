@@ -52,10 +52,22 @@ if(config.debug && mode !== 'importer') {
       this.flushDefferedEvents();
       _done();
     });
-    _.each(this.candleConsumers, function(c) {
-      at = c.meta.name;
-      c.processCandle(chunk, flushEvents);
-    }, this);
+    // Pierolalune, 18.02.2021, prepare _.each for lodash upgrade
+    // _.each(this.candleConsumers, function(c) {
+    //   at = c.meta.name;
+    //   c.processCandle(chunk, flushEvents);
+    // }, this);
+    _.each(
+      this.candleConsumers, 
+      _.bind(
+        function(c) {
+          at = c.meta.name;
+          c.processCandle(chunk, flushEvents);
+        }, 
+        this
+      )
+    );
+
   }
 } else {
   // skip decoration
@@ -68,9 +80,17 @@ if(config.debug && mode !== 'importer') {
       this.flushDefferedEvents();
       _done();
     });
-    _.each(this.candleConsumers, async function(c) {
-      await c.processCandle(chunk, flushEvents);
-    }, this);
+    // Pierolalune, 18.02.2021, prepare _.each for lodash upgrade. 
+    // thisArgs disappears, can be solved with binding function with this.
+    _.each(
+      this.candleConsumers, 
+      _.bind(
+        function(c) {
+          c.processCandle(chunk, flushEvents);
+        }, 
+        this
+      )
+    );
   }
 }
 
@@ -80,7 +100,7 @@ Gekko.prototype.flushDefferedEvents = function() {
     producer => producer.broadcastDeferredEmit()
   );
 
-  // If we broadcasted anything, we might have
+  // If we had broadcasted anything, we might have
   // triggered more events, recurse until we
   // have fully broadcasted everything.
   if(broadcasted)

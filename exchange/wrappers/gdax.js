@@ -1,4 +1,6 @@
-const Gdax = require('gdax');
+//Pierolalune, 15.02.2021, replace gdax 0.7.0 with coinbase-pro 0.9.0
+//const Gdax = require('gdax');
+const Gdax = require('coinbase-pro');
 const _ = require('lodash');
 const moment = require('moment');
 

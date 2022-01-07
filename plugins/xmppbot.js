@@ -9,7 +9,9 @@ var utc = moment.utc;
 
 
 var Actor = function() {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.bot = new xmpp.Client({ jid: xmppbot.client_id,
                password: xmppbot.client_pwd,

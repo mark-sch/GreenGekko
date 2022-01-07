@@ -3,14 +3,18 @@
  */
 
 var _ = require('lodash');
-var request = require('request');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//var request = require('request');
+var request = require('axios');
 var log = require('../core/log.js');
 var util = require('../core/util.js');
 var config = util.getConfig();
 var kodiConfig = config.kodi;
 
 var Kodi = function(done) {
-    _.bindAll(this);
+    // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
     this.exchange = config.watch.exchange.charAt().toUpperCase() + config.watch.exchange.slice(1)
 

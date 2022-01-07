@@ -5,7 +5,9 @@ var Ranger = require('ranger');
 var config = require('../core/util').getConfig().campfire;
 
 var Actor = function() {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.commands = [{
     'handler': 'advice',
@@ -86,9 +88,9 @@ Actor.prototype = {
   },
 
   pasteDescriptions: function() {
-    var descriptions = _.map(this.commands, function(command) {
+    var descriptions = _.map(this.commands, _.bind(function(command) {
       return [command.handler + ':', command.description].join(' ');
-    }, this).join('\n');
+    }, this)).join('\n');
 
     this.room.paste(descriptions);
   },
@@ -106,11 +108,11 @@ Actor.prototype = {
     if (message.userId === this.user.id) return false; // Make the bot ignore itself
     if (message.body === null) return false; // Handle weird cases where body is null sometimes
 
-    _.each(this.commands, function(command) {
+    _.each(this.commands, _.bind(function(command) {
       if (this.textHasCommandForBot(message.body, config.nickname, command.handler)) {
         command.callback();
       }
-    }, this);
+    }, this));
   },
 
   textHasCommandForBot: function(text, nickname, handler) {

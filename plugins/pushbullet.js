@@ -32,14 +32,18 @@ config.pushbullet = {
 var pushbullet = require("pushbullet");
 var _ = require('lodash');
 const moment = require('moment');
-const request = require('request');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//const request = require('request');
+const request = require('axios');
 var log = require('../core/log.js');
 var util = require('../core/util.js');
 var config = util.getConfig();
 var pbConf = config.pushbullet;
 
 var Pushbullet = function(done) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.pusher;
   this.price = 'N/A';

@@ -25,7 +25,9 @@ const Fetcher = function(config) {
 
   const exchangeName = config.watch.exchange.toLowerCase();
   const DataProvider = require(util.dirs().gekko + 'exchange/wrappers/' + exchangeName);
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   // Create a public dataProvider object which can retrieve live
   // trade information from an exchange.

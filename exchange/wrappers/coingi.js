@@ -8,7 +8,9 @@ var log = require('../core/log');
 
 
 var Trader = function (config) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   if (_.isObject(config)) {
     this.key = config.key;
@@ -102,7 +104,7 @@ Trader.prototype.getTrades = function (since, callback, ascending) {
     }
 
     var parsedTrades = [];
-    _.each(trades, function (trade) {
+    _.each(trades, _.bind(function (trade) {
       // Even when you supply 'since' you can still get more trades than you asked for, it needs to be filtered
       if (_.isNull(startTs) || startTs < moment(trade.timestamp).valueOf()) {
         parsedTrades.push({
@@ -113,7 +115,7 @@ Trader.prototype.getTrades = function (since, callback, ascending) {
           tid: trade.timestamp
         });
       }
-    }, this);
+    }, this));
 
     if(ascending)
       callback(undefined, parsedTrades);

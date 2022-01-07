@@ -333,15 +333,17 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     var parsedTrades = [];
     _.each(
       res.data,
-      function(trade) {
-        parsedTrades.push({
-          tid: trade.id,
-          date: moment(trade.created_at).unix(),
-          price: parseFloat(trade.price),
-          amount: parseFloat(trade.size),
-        });
-      },
-      this
+      _.bind(
+        function(trade) {
+          parsedTrades.push({
+            tid: trade.id,
+            date: moment(trade.created_at).unix(),
+            price: parseFloat(trade.price),
+            amount: parseFloat(trade.size),
+          });
+        },
+        this
+      )
     );
 
     if (descending) {

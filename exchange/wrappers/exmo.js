@@ -5,7 +5,9 @@ const retry = require('../exchangeUtils').retry;
 
 const CryptoJS = require("crypto-js");
 const querystring = require('querystring');
-const request = require('request');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//const request = require('request');
+const request = require('axios');
 
 API_URL='https://api.exmo.com/v1/';
 
@@ -13,7 +15,9 @@ const marketData = require('./exmo-markets.json');
 
 
 const Trader = function(config) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   this.key="";
   this.secret="";
   

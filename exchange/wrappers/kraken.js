@@ -8,7 +8,9 @@ const scientificToDecimal = exchangeUtils.scientificToDecimal;
 const marketData = require('./kraken-markets.json');
 
 const Trader = function(config) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   if(_.isObject(config)) {
     this.key = config.key;
@@ -191,7 +193,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
     if (err) return callback(err);
 
     var parsedTrades = [];
-    _.each(trades.result[this.pair], function(trade) {
+    _.each(trades.result[this.pair], _.bind(function(trade) {
       // Even when you supply 'since' you can still get more trades than you asked for, it needs to be filtered
       if (_.isNull(startTs) || startTs < moment.unix(trade[2]).valueOf()) {
         parsedTrades.push({
@@ -201,7 +203,7 @@ Trader.prototype.getTrades = function(since, callback, descending) {
           amount: parseFloat(trade[1])
         });
       }
-    }, this);
+    }, this));
 
     if(descending)
       callback(undefined, parsedTrades.reverse());
@@ -399,7 +401,7 @@ Trader.prototype.checkOrder = function(order, callback) {
     if(err) return callback(err);
 
     const result = data.result[order];
-console.log('Debug checkOrder', result.vol, result.vol_exec, result.status, result.vol_exec);
+	console.log('Debug checkOrder', result.vol, result.vol_exec, result.status, result.vol_exec);
     callback(undefined, {
       executed: result.vol === result.vol_exec,
       open: result.status === 'open',

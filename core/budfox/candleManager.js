@@ -14,7 +14,9 @@ var log = require(dirs.core + 'log');
 var CandleCreator = require(dirs.budfox + 'candleCreator');
 
 var Manager = function() {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 
   this.candleCreator = new CandleCreator;
 

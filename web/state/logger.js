@@ -10,7 +10,9 @@ const Logger = function(id) {
   this.writing = false;
   this.queue = [];
 
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
 }
 
 Logger.prototype.write = function(line) {

@@ -9,7 +9,9 @@ const retry = require('../exchangeUtils').retry;
 const marketData = require('./bitfinex-markets.json');
 
 var Trader = function(config) {
-  _.bindAll(this);
+  // Pierolalune, 17.02.2021: Prepare Bind all for lodash upgrade
+  // _.bindAll(this);
+  _.bindAll(this, _.functionsIn(this).sort());
   if(_.isObject(config)) {
     this.key = config.key;
     this.secret = config.secret;

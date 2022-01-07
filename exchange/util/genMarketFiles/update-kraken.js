@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const fs = require('fs');
-const request = require('request-promise');
+//Pierolalune, 09.02.2021: Replace request and request-promise with axios
+//const request = require('request-promise');
+const request = require('axios');
 const Promise = require('bluebird');
 
 // Minimum amounts are not queryable, get them here 
@@ -68,6 +70,27 @@ let getMinTradeSize = asset => {
     break;
   case 'XZEC':
     minTradeSize = '0.03'
+    break;
+  case 'COMP':
+    minTradeSize = '0.025'
+    break;
+  case 'MANA':
+    minTradeSize = '50'
+    break;
+  case 'AAVE':
+    minTradeSize = '0.1'
+    break;
+  case 'ALGO':
+    minTradeSize = '50'
+    break;
+  case 'FLOW':
+    minTradeSize = '1'
+    break;
+  case 'EWT':
+    minTradeSize = '1'
+    break;
+  case 'OCEAN':
+    minTradeSize = '10'
     break;
   default:
     break;
